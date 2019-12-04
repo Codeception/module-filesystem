@@ -13,6 +13,7 @@ sudo: false
 install:
   - '[[ -z "$CI_USER_TOKEN" ]] || composer config github-oauth.github.com ${CI_USER_TOKEN};'
   - travis_retry composer self-update && composer --version
+  - composer require --no-update codeception/codeception:"4.0.x-dev"
   - COMPOSER_MEMORY_LIMIT=-1 composer update --prefer-dist --no-interaction
 
 script:

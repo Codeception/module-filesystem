@@ -1,6 +1,6 @@
 # Codeception module for testing local filesystem
 
-[![Build Status](https://travis-ci.org/Codeception/module-filesystem.svg?branch=master)](https://travis-ci.org/Codeception/module-filesystem)
+![Build Status](https://github.com/Codeception/module-filesystem/workflows/CI/badge.svg)
 
 ## Installation
 

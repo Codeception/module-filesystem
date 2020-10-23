@@ -10,4 +10,4 @@ composer require --dev "codeception/module-filesystem"
 
 ## Documentation
 
-<a href="documentation.md">Look at documentation.md file</a>
+<a href="https://codeception.com/docs/modules/Filesystem">Module documentation</a>

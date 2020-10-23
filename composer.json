@@ -19,9 +19,6 @@
         "codeception/codeception": "^4.0",
         "symfony/finder": ">=2.7 <6.0"
     },
-    "require-dev": {
-        "codeception/util-robohelpers": "dev-master"
-    },
     "conflict": {
         "codeception/codeception": "<4.0"
     },

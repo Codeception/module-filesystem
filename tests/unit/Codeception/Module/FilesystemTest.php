@@ -1,13 +1,13 @@
 <?php
 
 use Codeception\Module\Filesystem;
-use Codeception\Util\Stub;
+use Codeception\Stub;
 use PHPUnit\Framework\AssertionFailedError;
 
 if (!function_exists('make_container')) {
     function make_container()
     {
-        return \Codeception\Util\Stub::make('Codeception\Lib\ModuleContainer');
+        return Stub::make('Codeception\Lib\ModuleContainer');
     }
 }
 

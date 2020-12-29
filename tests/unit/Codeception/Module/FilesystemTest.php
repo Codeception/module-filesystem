@@ -33,12 +33,12 @@ class FilesystemTest extends \Codeception\PHPUnit\TestCase
 
     public function testSeeFileFoundPassesWhenFileExists()
     {
-        $this->module->seeFileFound('tests/_support/_generated/.gitignore');
+        $this->module->seeFileFound(codecept_root_dir('tests/_support/_generated/.gitignore'));
     }
 
     public function testSeeFileFoundPassesWhenFileExistsInSubdirectoryOfPath()
     {
-        $this->module->seeFileFound('UnitTesterActions.php', 'tests/_support/');
+        $this->module->seeFileFound('UnitTesterActions.php', codecept_root_dir('tests/_support/'));
     }
 
     public function testSeeFileFoundFailsWhenFileDoesNotExist()
@@ -68,8 +68,8 @@ class FilesystemTest extends \Codeception\PHPUnit\TestCase
     public function testDontSeeFileFoundFailsWhenFileExists()
     {
         $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessage('Failed asserting that file "tests/_support/_generated/.gitignore" does not exist.');
-        $this->module->dontSeeFileFound('tests/_support/_generated/.gitignore');
+        $this->expectExceptionMessageRegExp('/Failed asserting that file ".*tests\/_support\/_generated\/\.gitignore" does not exist\./');
+        $this->module->dontSeeFileFound(codecept_root_dir('tests/_support/_generated/.gitignore'));
     }
 
     public function testDontSeeFileFoundFailsWhenPathDoesNotExist()

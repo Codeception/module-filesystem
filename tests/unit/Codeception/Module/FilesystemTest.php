@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Codeception\Module\Filesystem;
 use Codeception\Stub;
 use PHPUnit\Framework\AssertionFailedError;
@@ -7,11 +9,11 @@ use PHPUnit\Framework\AssertionFailedError;
 if (!function_exists('make_container')) {
     function make_container()
     {
-        return Stub::make('Codeception\Lib\ModuleContainer');
+        return Stub::make(\Codeception\Lib\ModuleContainer::class);
     }
 }
 
-class FilesystemTest extends \Codeception\PHPUnit\TestCase
+final class FilesystemTest extends \Codeception\PHPUnit\TestCase
 {
 
     /**
@@ -22,13 +24,13 @@ class FilesystemTest extends \Codeception\PHPUnit\TestCase
     public function _setUp()
     {
         $this->module = new Filesystem(make_container());
-        $this->module->_before(Stub::makeEmpty('\Codeception\Test\Test'));
+        $this->module->_before(Stub::makeEmpty(\Codeception\Test\Test::class));
     }
 
 
     public function _tearDown()
     {
-        $this->module->_after(Stub::makeEmpty('\Codeception\Test\Test'));
+        $this->module->_after(Stub::makeEmpty(\Codeception\Test\Test::class));
     }
 
     public function testSeeFileFoundPassesWhenFileExists()

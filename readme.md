@@ -7,6 +7,10 @@ A Codeception module for testing local filesystem.
 [![Total Downloads](https://poser.pugx.org/codeception/module-filesystem/downloads)](https://packagist.org/packages/codeception/module-filesystem)
 [![License](https://poser.pugx.org/codeception/module-filesystem/license)](/LICENSE)
 
+## Requirements
+
+* `PHP 7.1` or higher.
+
 ## Installation
 
 ```

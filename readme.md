@@ -21,6 +21,8 @@ composer require "codeception/module-filesystem" --dev
 
 See [the module documentation](https://codeception.com/docs/modules/Filesystem).
 
+[Changelog](https://github.com/Codeception/module-filesystem/releases)
+
 ## License
 
 `Codeception Module Filesystem` is open-sourced software licensed under the [MIT](/LICENSE) License.

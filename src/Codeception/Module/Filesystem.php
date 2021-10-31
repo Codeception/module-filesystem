@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Codeception\Module;
 
-use Codeception\Util\FileSystem as Util;
-use Symfony\Component\Finder\Finder;
-use Codeception\Module;
-use Codeception\TestInterface;
 use Codeception\Configuration;
+use Codeception\Module;
+use Codeception\PHPUnit\TestCase;
+use Codeception\TestInterface;
+use Codeception\Util\FileSystem as Util;
+use PHPUnit\Framework\AssertionFailedError;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Module for testing local filesystem.
@@ -24,16 +26,11 @@ use Codeception\Configuration;
  */
 class Filesystem extends Module
 {
-    protected $file;
-    /**
-     * @var string|null
-     */
-    protected $filepath;
+    protected string $file = '';
 
-    /**
-     * @var string
-     */
-    protected $path = '';
+    protected string $filePath = '';
+
+    protected string $path = '';
 
     public function _before(TestInterface $test): void
     {
@@ -56,6 +53,7 @@ class Filesystem extends Module
         if (strpos($path, '/') === 0) {
             return $path;
         }
+
         // windows
         if (strpos($path, ':\\') === 1) {
             return $path;
@@ -78,7 +76,7 @@ class Filesystem extends Module
     public function openFile(string $filename): void
     {
         $this->file = file_get_contents($this->absolutizePath($filename));
-        $this->filepath = $filename;
+        $this->filePath = $filename;
     }
 
     /**
@@ -92,8 +90,9 @@ class Filesystem extends Module
     public function deleteFile(string $filename): void
     {
         if (!file_exists($this->absolutizePath($filename))) {
-            \Codeception\PHPUnit\TestCase::fail('file not found');
+            TestCase::fail('file not found');
         }
+
         unlink($this->absolutizePath($filename));
     }
 
@@ -162,6 +161,7 @@ class Filesystem extends Module
             "The number of new lines does not match with {$number}"
         );
     }
+
     /**
      * Checks that contents of currently opened file matches $regex
      */
@@ -185,7 +185,7 @@ class Filesystem extends Module
     public function seeFileContentsEqual(string $text): void
     {
         $file = str_replace("\r", '', $this->file);
-        \Codeception\PHPUnit\TestCase::assertEquals($text, $file);
+        TestCase::assertEquals($text, $file);
     }
 
     /**
@@ -207,7 +207,7 @@ class Filesystem extends Module
      */
     public function deleteThisFile(): void
     {
-        $this->deleteFile($this->filepath);
+        $this->deleteFile($this->filePath);
     }
 
     /**
@@ -223,7 +223,7 @@ class Filesystem extends Module
     {
         if ($path === '' && file_exists($filename)) {
             $this->openFile($filename);
-            \Codeception\PHPUnit\TestCase::assertFileExists($filename);
+            TestCase::assertFileExists($filename);
             return;
         }
 
@@ -234,7 +234,7 @@ class Filesystem extends Module
         }
 
         $this->openFile($found);
-        \Codeception\PHPUnit\TestCase::assertFileExists($found);
+        TestCase::assertFileExists($found);
     }
 
     /**
@@ -243,7 +243,7 @@ class Filesystem extends Module
     public function dontSeeFileFound(string $filename, string $path = ''): void
     {
         if ($path === '') {
-            \Codeception\PHPUnit\TestCase::assertFileNotExists($filename);
+            TestCase::assertFileDoesNotExist($filename);
             return;
         }
 
@@ -251,17 +251,17 @@ class Filesystem extends Module
 
         if ($found === false) {
             //this line keeps a count of assertions correct
-            \Codeception\PHPUnit\TestCase::assertTrue(true);
+            TestCase::assertTrue(true);
             return;
         }
 
-        \Codeception\PHPUnit\TestCase::assertFileNotExists($found);
+        TestCase::assertFileDoesNotExist($found);
     }
 
     /**
      * Finds the first matching file
      *
-     * @throws \PHPUnit\Framework\AssertionFailedError When path does not exist
+     * @throws AssertionFailedError When path does not exist
      * @return string|false Path to the first matching file
      */
     private function findFileInPath(string $filename, string $path)

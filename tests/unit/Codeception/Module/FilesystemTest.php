@@ -2,24 +2,23 @@
 
 declare(strict_types=1);
 
+use Codeception\Lib\ModuleContainer;
 use Codeception\Module\Filesystem;
+use Codeception\PHPUnit\TestCase;
 use Codeception\Stub;
 use PHPUnit\Framework\AssertionFailedError;
 
 if (!function_exists('make_container')) {
     function make_container()
     {
-        return Stub::make(\Codeception\Lib\ModuleContainer::class);
+        return Stub::make(ModuleContainer::class);
     }
 }
 
-final class FilesystemTest extends \Codeception\PHPUnit\TestCase
+final class FilesystemTest extends TestCase
 {
 
-    /**
-     * @var \Codeception\Module\Filesystem
-     */
-    protected $module;
+    protected ?Filesystem $module = null;
 
     public function _setUp()
     {

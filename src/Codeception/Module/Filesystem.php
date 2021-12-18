@@ -32,7 +32,7 @@ class Filesystem extends Module
 
     protected string $path = '';
 
-    public function _before(TestInterface $test): void
+    public function _before(TestInterface $test)
     {
         $this->path = Configuration::projectDir();
     }
@@ -154,7 +154,7 @@ class Filesystem extends Module
      */
     public function seeNumberNewLines(int $number): void
     {
-        $lines = preg_split('#\n|\r#', $this->file);
+        $lines = preg_split('#[\n\r]#', $this->file);
 
         $this->assertTrue(
             $number === count($lines),

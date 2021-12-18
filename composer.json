@@ -15,12 +15,12 @@
 	],
 	"minimum-stability": "RC",
 	"require": {
-		"php": "^7.4 || ^8.0",
-		"codeception/codeception": "*@dev",
-		"symfony/finder": ">=3.4 <6.0"
+		"php": "^7.4 | ^8.0",
+		"codeception/codeception": "^4.1 | *@dev",
+		"symfony/finder": "^4.4 | ^5.4 | ^6.0"
 	},
 	"conflict": {
-		"codeception/codeception": "<4.0"
+		"codeception/codeception": "<4.1"
 	},
 	"autoload": {
 		"classmap": [

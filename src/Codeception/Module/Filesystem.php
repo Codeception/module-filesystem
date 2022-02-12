@@ -32,7 +32,7 @@ class Filesystem extends Module
 
     protected string $path = '';
 
-    public function _before(TestInterface $test)
+    public function _before(TestInterface $test): void
     {
         $this->path = Configuration::projectDir();
     }

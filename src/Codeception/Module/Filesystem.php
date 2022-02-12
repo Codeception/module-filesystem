@@ -50,7 +50,7 @@ class Filesystem extends Module
     protected function absolutizePath(string $path): string
     {
         // *nix way
-        if (strpos($path, '/') === 0) {
+        if (str_starts_with($path, '/')) {
             return $path;
         }
 
@@ -264,7 +264,7 @@ class Filesystem extends Module
      * @throws AssertionFailedError When path does not exist
      * @return string|false Path to the first matching file
      */
-    private function findFileInPath(string $filename, string $path)
+    private function findFileInPath(string $filename, string $path): string|false
     {
         $path = $this->absolutizePath($path);
         if (!file_exists($path)) {

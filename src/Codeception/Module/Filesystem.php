@@ -79,10 +79,11 @@ class Filesystem extends Module
      */
     public function openFile(string $filename): void
     {
-        if (!file_exists($this->absolutizePath($filename))) {
+        $absolutePath = $this->absolutizePath($filename);
+        if (!file_exists($absolutePath)) {
             TestCase::fail('file not found');
         }
-        $this->file = file_get_contents($this->absolutizePath($filename));
+        $this->file = file_get_contents($absolutePath);
         $this->filePath = $filename;
     }
 
@@ -96,11 +97,12 @@ class Filesystem extends Module
      */
     public function deleteFile(string $filename): void
     {
-        if (!file_exists($this->absolutizePath($filename))) {
+        $absolutePath = $this->absolutizePath($filename);
+        if (!file_exists($absolutePath)) {
             TestCase::fail('file not found');
         }
 
-        unlink($this->absolutizePath($filename));
+        unlink($absolutePath);
     }
 
     /**

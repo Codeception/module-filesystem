@@ -43,7 +43,11 @@ class Filesystem extends Module
      */
     public function amInPath(string $path): void
     {
-        chdir($this->path = $this->absolutizePath($path) . DIRECTORY_SEPARATOR);
+        $this->path = $this->absolutizePath($path) . DIRECTORY_SEPARATOR;
+        if (!file_exists($this->path)) {
+            TestCase::fail('directory not found');
+        }
+        chdir($this->path);
         $this->debug('Moved to ' . getcwd());
     }
 
@@ -75,7 +79,11 @@ class Filesystem extends Module
      */
     public function openFile(string $filename): void
     {
-        $this->file = file_get_contents($this->absolutizePath($filename));
+        $absolutePath = $this->absolutizePath($filename);
+        if (!file_exists($absolutePath)) {
+            TestCase::fail('file not found');
+        }
+        $this->file = file_get_contents($absolutePath);
         $this->filePath = $filename;
     }
 
@@ -89,11 +97,12 @@ class Filesystem extends Module
      */
     public function deleteFile(string $filename): void
     {
-        if (!file_exists($this->absolutizePath($filename))) {
+        $absolutePath = $this->absolutizePath($filename);
+        if (!file_exists($absolutePath)) {
             TestCase::fail('file not found');
         }
 
-        unlink($this->absolutizePath($filename));
+        unlink($absolutePath);
     }
 
     /**

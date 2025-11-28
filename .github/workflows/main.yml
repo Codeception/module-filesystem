@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        php: [8.0, 8.1]
+        php: [8.0, 8.1, 8.2, 8.3, 8.4, 8.5]
 
     steps:
     - name: Checkout code
@@ -19,6 +19,10 @@ jobs:
       with:
         php-version: ${{ matrix.php }}
         coverage: none
+        # this ini directive seems to be off by default in PHP 8.5
+        # see https://github.com/php/php-src/issues/20279
+        # enable it because codeception relies on it.
+        ini-values: register_argc_argv=1
 
     - name: Validate composer.json and composer.lock
       run: composer validate

@@ -9,7 +9,7 @@ A Codeception module for testing local filesystem.
 
 ## Requirements
 
-* `PHP 8.0` or higher.
+* `PHP 8.2` or higher.
 
 ## Installation
 
